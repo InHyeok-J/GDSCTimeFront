@@ -6,11 +6,12 @@ body {
     text-size-adjust: none;
     margin: 0;
     padding: 0;
+    padding-top: 30px;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    height: 100%;
+    height: auto;
     min-height: 100%;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-y: none;
@@ -25,11 +26,11 @@ body {
 }
 
 .top-navigation {
-    position: fixed;
+    position: sticky;
     width: 100%;
     max-width: 500px;
     top: 0px;
-    height: 48px;
+    height: obejct-fit;
 }
 
 .bottom-navigation {
@@ -57,8 +58,8 @@ body {
 }
 
 .board-wrapper {
-    border: 2px solid #e3e3e3;
-    border-radius: 5px;
+    border: 1.5px solid #e3e3e3;
+    border-radius: 15px;
 }
 
 button {

@@ -4,11 +4,11 @@ import Logo from './assets/logo/logo.png';
 import Main from './pages/Main';
 import Board from './pages/Board';
 import Alarm from './pages/Alarm';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 const App = () => {
     return (
-        <>
+        <HelmetProvider>
             <Helmet
                 title="GDSC TIME"
                 link={[
@@ -26,7 +26,7 @@ const App = () => {
                     <Route exact path="/alarm" component={Alarm} />
                 </Switch>
             </BrowserRouter>
-        </>
+        </HelmetProvider>
     );
 };
 
