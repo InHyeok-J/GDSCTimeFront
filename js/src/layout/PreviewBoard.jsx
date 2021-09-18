@@ -12,6 +12,10 @@ const PreviewBoardWrapper = styled.div`
     .contents {
         font-size: 0.9rem;
         font-weight: 200;
+        height: 34px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     .category {
         color: ${COLORS.grey_text};
@@ -24,17 +28,15 @@ const PreviewBoardWrapper = styled.div`
     img {
         width: 12px;
         height: 12px;
+        margin-right: 5px;
     }
     .like {
         color: ${COLORS.red};
+        margin-right: 10px;
     }
     .comments {
         color: ${COLORS.blue};
         width: auto;
-        height: 50px;
-        overflow: hidden;
-        display: inline-block;
-        text-overflow: ellipsis;
     }
     div + div {
         margin-top: 10px;

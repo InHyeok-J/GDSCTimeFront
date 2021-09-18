@@ -5,7 +5,7 @@ import { COLORS } from '../components/Colors';
 import { DateChange } from '../utils/dateChange';
 
 const PrviewWrapper = styled.div`
-    margin-top: 10px;
+    margin-top: 20px;
     height: 30px;
     display: flex;
     justify-content: space-between;
