@@ -1,5 +1,5 @@
 import React from 'react';
-
+import styled from 'styled-components';
 import BottomNavigation from '../../layout/BottomNavigation';
 import TopNavigation from '../../layout/TopNavigation';
 import TopGuide from './components/TopGuide';
@@ -8,9 +8,14 @@ import MyBoard from './components/MyBoard';
 import RealTimeBoard from './components/RealTimeBoard';
 import Popular from './components/Popular';
 
+const MainWrapper = styled.div`
+    padding-top: 50px;
+    padding-bottom: 50px;
+`;
+
 const Index = () => {
     return (
-        <>
+        <MainWrapper>
             <TopNavigation />
             <TopGuide />
             <LinkList />
@@ -18,7 +23,7 @@ const Index = () => {
             <RealTimeBoard />
             <Popular />
             <BottomNavigation activeNum={1} />
-        </>
+        </MainWrapper>
     );
 };
 

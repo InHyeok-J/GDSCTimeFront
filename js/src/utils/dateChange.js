@@ -12,6 +12,9 @@ export const DateChange = (date) => {
     if (parseInt(hour, 10) < 10) {
         hour = '0' + hour;
     }
+    if (parseInt(min, 10) < 10) {
+        min = '0' + min;
+    }
     const result = month + '/' + day + ' ' + hour + ':' + min;
 
     return result;
