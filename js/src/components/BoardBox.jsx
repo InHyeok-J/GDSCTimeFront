@@ -3,15 +3,8 @@ import styled, { css } from 'styled-components';
 
 const BoxWrapper = styled.div`
     box-sizing: border-box;
-    ${(props) => {
-        const newWidth = props.size * 5;
-
-        return css`
-            width: ${newWidth}px;
-        `;
-    }};
+    width: 100%;
     height: auto;
-    margin-left: 5px;
     padding: 20px;
     & + & {
         margin-left: 10px;

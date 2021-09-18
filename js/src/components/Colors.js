@@ -12,4 +12,5 @@ export const COLORS = {
     grey_600: '#72787F',
     green: '#0ca5af',
     yellow: '#ecc55c',
+    blue: 'rgb(77,163,173)',
 };

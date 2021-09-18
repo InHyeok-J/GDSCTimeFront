@@ -7,19 +7,19 @@ import scheduleImg from '../../../assets/linklist/calendar.png';
 import libraryImg from '../../../assets/linklist/open-book.png';
 import webMailImg from '../../../assets/linklist/world.png';
 
-const ItemWrapper = styled.a`
+const ItemWrapper = styled.div`
     width: 80px;
     height: auto;
     padding-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    cursor: pointer;
     .icon-block {
         width: 45px;
         height: 45px;
         text-align: center;
         border-radius: 20px;
+        cursor: pointer;
         align-items: center;
         background-color: rgb(245, 245, 245);
         img {
@@ -58,10 +58,10 @@ const LinkItem = ({ name, href, title }) => {
     }
 
     return (
-        <ItemWrapper href={href} target="_blank">
-            <div className="icon-block">
+        <ItemWrapper>
+            <a className="icon-block" href={href} target="_blank">
                 <img src={src} alt={name} />
-            </div>
+            </a>
             <div className="text-block">{name}</div>
         </ItemWrapper>
     );

@@ -104,7 +104,7 @@ const TopGuide = () => {
 };
 
 const TopGuideWrapper = styled.div`
-    padding-left: 10px;
+    padding: 10px;
     margin-top: 10px;
     max-width: 500px;
     box-sizing: border-box;
@@ -116,7 +116,7 @@ const TopGuideWrapper = styled.div`
 `;
 
 const Container = styled.div`
-    width: inherit;
+    width: 300px;
     height: auto;
     display: flex;
     .icon-block {
@@ -128,7 +128,6 @@ const Container = styled.div`
         }
     }
     .text-block {
-        width: 60%;
         height: 100%;
     }
     .title {

@@ -15,7 +15,7 @@ const MyBoardWraaper = styled.div`
 const MyBoard = () => {
     return (
         <MyBoardWraaper>
-            <BoardBox size="94">
+            <BoardBox size="100">
                 <BoardTitle more={true}>즐겨찾는 게시판</BoardTitle>
                 {dummyMyboard.map((v) => (
                     <BoardBody

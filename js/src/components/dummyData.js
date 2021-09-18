@@ -53,11 +53,13 @@ export const dummyMyboard = [
     },
 ];
 
+// 기존 데이터 : 09/06 00:39
+// 변경 데이터2021-09-04T00:50'
 export const dummyRealtime = [
     {
         profileUrl: '',
         nick: '익명',
-        date: '09/05 00:39',
+        date: '2021-09-18T10:50',
         title: 'React 스터디 잘하는방법',
         contents: 'hellow word',
         category: '자유게시판',
@@ -67,10 +69,10 @@ export const dummyRealtime = [
     {
         profileUrl: '',
         nick: '익명',
-        date: '09/06 00:39',
+        date: '2021-09-19T00:50',
         title: 'GDSC에서 살아남기',
         contents:
-            'gdsc는 2017년 인도에서 시작된 학생 개발자 커뮤니티로서, 올해 서울과학기술대학교에 2021년 출범하게 되었습니다. 많은 관심 부탁드립니다.',
+            'gdsc는 2017년 인도에서 시작된 학생 개발자 커뮤니티로서,gdsc는 2017년 인도에서 시작된 학생 개발자 커뮤니티로서, gdsc는 2017년 인도에서 시작된 학생 개발자 커뮤니티로서,  올해 서울과학기술대학교에 2021년 출범하게 되었습니다. 많은 관심 부탁드립니다.',
         category: '자유게시판',
         comments: 35,
         like: 20,

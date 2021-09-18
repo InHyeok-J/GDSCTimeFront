@@ -4,8 +4,8 @@ import { universityLinkData } from '../../../components/dummyData';
 import LinkItem from './LinkItem';
 
 const LinkListWrappeer = styled.div`
-    width: 100%;
     height: 140px;
+    padding: 10px;
     background-color: #ffffff;
     display: flex;
     justify-content: center;

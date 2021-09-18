@@ -4,11 +4,14 @@ import newImg from '../assets/icon/new.svg';
 import { COLORS } from '../components/Colors';
 
 const BoardBodyWrapper = styled.div`
+    display: flex;
+    justify-content: space-between;
     height: auto;
     .title-block {
         display: inline-block;
         margin: 15px 5px 5px 0;
         font-size: 1rem;
+        white-space: nowrap;
         color: ${COLORS.black};
     }
     .text-block {
