@@ -44,23 +44,27 @@ const ItemWrapper = styled.div`
 `;
 
 const LinkItem = ({ name, href, title }) => {
-    let src;
-    if (title === 'homepage') {
-        src = homePageImg;
-    } else if (title === 'notice') {
-        src = noticeImg;
-    } else if (title === 'schedule') {
-        src = scheduleImg;
-    } else if (title === 'library') {
-        src = libraryImg;
-    } else if (title === 'webmail') {
-        src = webMailImg;
-    }
-
+    const src = () => {
+        switch (title) {
+            case 'hompage':
+                return homePageImg;
+            case 'notice':
+                return noticeImg;
+            case 'schedule':
+                return scheduleImg;
+            case 'library':
+                return libraryImg;
+            case 'webmail':
+                return webMailImg;
+            default:
+                return homePageImg;
+        }
+    };
+    console.log(title, src);
     return (
         <ItemWrapper>
             <a className="icon-block" href={href} target="_blank">
-                <img src={src} alt={name} />
+                <img src={src()} alt={name} />
             </a>
             <div className="text-block">{name}</div>
         </ItemWrapper>

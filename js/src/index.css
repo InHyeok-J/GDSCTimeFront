@@ -101,4 +101,6 @@ textarea {
 }
 input {
     caret-color: #c62917;
+    cursor: auto;
+    caret-color: #c62917;
 }
