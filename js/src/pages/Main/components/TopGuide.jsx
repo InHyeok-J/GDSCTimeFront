@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import BoardBox from '../../../components/BoardBox';
 import LampImg from '../../../assets/lamp.svg';
 import MoonImg from '../../../assets/moon.png';
 import CheckImg from '../../../assets/check.svg';
@@ -42,8 +41,8 @@ const TopGuide = () => {
             onMouseLeave={onDragEnd}
             ref={scrollRef}
         >
-            <BoardBox size="70">
-                <Container>
+            <BlockContainer>
+                <Container className="board-wrapper">
                     <div className="icon-block">
                         <img src={LampImg} alt="lamp" />
                     </div>
@@ -60,9 +59,7 @@ const TopGuide = () => {
                         </div>
                     </div>
                 </Container>
-            </BoardBox>
-            <BoardBox size="70">
-                <Container>
+                <Container className="board-wrapper">
                     <div className="icon-block">
                         <img src={MoonImg} alt="moon" />
                     </div>
@@ -75,9 +72,7 @@ const TopGuide = () => {
                         </div>
                     </div>
                 </Container>
-            </BoardBox>
-            <BoardBox size="70">
-                <Container>
+                <Container className="board-wrapper">
                     <div className="icon-block">
                         <img src={CheckImg} alt="check" />
                     </div>
@@ -98,23 +93,24 @@ const TopGuide = () => {
                         </div>
                     </div>
                 </Container>
-            </BoardBox>
+            </BlockContainer>
         </TopGuideWrapper>
     );
 };
 
 const TopGuideWrapper = styled.div`
-    padding: 10px;
+    margin: 10px;
     margin-top: 10px;
-    max-width: 500px;
     box-sizing: border-box;
     width: auto;
-    height: 200px;
-    display: flex;
     overflow: hidden;
     z-index: 10;
 `;
-
+const BlockContainer = styled.div`
+    width: calc(300px * 3);
+    height: 200px;
+    display: flex;
+`;
 const Container = styled.div`
     width: 300px;
     height: auto;
@@ -150,6 +146,9 @@ const Container = styled.div`
     .body {
         margin-top: 20px;
         font-size: 0.8rem;
+    }
+    & + & {
+        margin-left: 10px;
     }
 `;
 
