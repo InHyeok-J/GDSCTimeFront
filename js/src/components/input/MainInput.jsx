@@ -5,8 +5,10 @@ import { COLORS } from '../Colors';
 const CustomInput = styled.input`
     width: 100%;
     height: 32px;
+    box-sizing: border-box;
     background: ${COLORS.grey_300};
     border-radius: 10px;
+    border-style: none;
     padding: 0px 16px;
     font-size: 14px;
 
