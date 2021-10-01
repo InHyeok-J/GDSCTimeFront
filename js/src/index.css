@@ -58,7 +58,7 @@ body {
 }
 
 .board-wrapper {
-    border: 1.5px solid #e3e3e3;
+    border: 2px solid #e3e3e3;
     border-radius: 10px;
     /*위에까지가 보일러플레이트,*/
     box-sizing: border-box;

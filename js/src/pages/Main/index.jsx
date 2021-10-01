@@ -9,7 +9,7 @@ import RealTimeBoard from './components/RealTimeBoard';
 import Popular from './components/Popular';
 
 const MainWrapper = styled.div`
-    padding-top: 50px;
+    padding-top: 70px;
     padding-bottom: 50px;
 `;
 

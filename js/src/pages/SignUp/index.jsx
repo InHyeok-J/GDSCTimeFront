@@ -1,26 +1,14 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
-import { COLORS } from '../../components/Colors';
 import MainButton from '../../components/button/MainButton';
 import MainInput from '../../components/input/MainInput';
 import useInput from '../../hooks/useInput';
 import { checkPassword } from '../../utils/RegExpCheck';
-import xImg from '../../assets/vector/xVector.svg';
-import { Link } from 'react-router-dom';
+
+import XButtonTitle from '../../layout/XButtonTitle';
 const SignUpWrapper = styled.div`
     padding: 30px 16px;
 
-    .signup-title {
-        font-size: 1.1rem;
-        font-weight: 500;
-        margin-bottom: 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    img {
-        width: 16px;
-    }
     .sub-text {
         font-size: 0.8rem;
         font-weight: 100;
@@ -98,12 +86,7 @@ const SignUpPage = () => {
 
     return (
         <SignUpWrapper>
-            <div className="signup-title">
-                회원가입
-                <Link to="/login">
-                    <img src={xImg} alt="xicon" />
-                </Link>
-            </div>
+            <XButtonTitle title="회원가입" to="login" />
             <div className="input-block">
                 <div className="sub-text">아이디</div>
                 <MainInput
