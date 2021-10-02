@@ -47,7 +47,113 @@ GDSC에서 진행하는 에브리타임 클론 프로젝트입니다.
 `HOT 게시글` 의 내용을 `layout/PreviewOnly`로 만들었습니다.
 
 
+## 2주차 
+###  스터디 시간에 배운 내용을 제 임의대로 리팩토링 시간을 많이 가졌습니다.
+- 스터디 시간에 공통 컴포넌트 `components/button/MainButton`,`components/input/MainInput` 으로 커스텀 컴포넌트를 만들어 재사용을 했습니다(회원가입 로그인 페이지)
+    - input태그에서 엔터 키를 눌렀을때, 회원가입 및 로그인 버튼이 눌리게 하기 위해서 `MainInput` 태그 안에 `onKeyPress` 이벤트를 추가 했습니다.
+    - 사용 방법은 input 태그 안에 `onKeyPress` 함수를 만들어 넘겨줍니다
+```js
+    const onSignUp = () => {
+          //회원가입 버튼.
+    }
+    const onSignUpKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            onSignUp();
+        }
+    };
+    ...
+    return (
+        <MainInput 
+            ...
+            onKeyPress={onSignUpKeyPress}
+        />
+        <MainButton text="회원가입"/>
+    )
+```    
 
+    - 이 onKeyPress 함수는 회원가입과 로그인의 마지막 Input 태그에 적용했습니다.
+- `useState`를 활용한 input태그의 값을 활용하는 방법을 배웠습니다.
+    - `useInput`이라는 커스텀 hooks을 만들어서 재사용 했습니다. 꼭 사용하세요!
+    - 기존의 input의 value값을 관리하는 onChange함수는 직접 만들어주어야하며 코드 수를 늘리는 범인입니다.
+    - `hooks/useInput.js`
+```js
+import { useState, useCallback } from 'react';
+
+export default (initialValue = null) => {
+    const [value, setValue] = useState(initialValue);
+    const handler = useCallback((e) => {
+        setValue(e.target.value);
+    }, []);
+    return [value, handler, setValue];
+};
+```  
+  
+    - 리턴의 첫 번째 인자로 value 값을 , 두번째는 onChange 함수를, 세번째 인자로 혹시 사용해야 하는 setState함수를 리턴해줍니다.    
+- 사용 방법 
+```js
+import useInput from '../../hooks/useInput';
+...
+const SingUpPage = () => {
+    const [id, onChangeId] = useInput(null);
+    const [password, , setPassword] = useInput(null); // password의 onChange함수는 커스텀 해주기 위해서 빈 값으로 둡니다.
+    ...
+    const onChangePassword = useCallback(
+        (e) => {
+            setPassword(e.target.value); 
+            setLastPasswordCheck(false);
+            if (!checkPassword(e.target.value)) {
+                setErrorPassword(true);
+            } else {
+                setErrorPassword(false);
+            }
+
+            // 이 부분은 패스워드 값을 입력해도 패스워드 확인 값이랑 같은지 검사.
+            if (e.target.value === passwordCheck) {
+                setErrorPasswordCheck(false);
+            } else {
+                setErrorPasswordCheck(true);
+            }
+        },
+        [password, passwordCheck],
+    );
+    
+    return (
+        <MainInput
+            value={id || ''}
+            type="text"
+            onChange={onChangeId} // 바로 사용
+            placeholder="아이디를 입력해주세요"
+        />
+        ...
+        <MainInput
+            value={password || ''}
+            type="password"
+            onChange={onChangePassword} //직접 커스텀 한 onChange 함수를 넘겨줌!
+            placeholder="비밀번호를 입력해주세요" 
+        />
+```
+---
+- 패스워드 검사 (정규식 활용)
+정규식 검사를 위해 utils 함수를 만들어서 사용 했습니다.프로젝트 폴더를 보면 hooks랑 utils함수를 분리를 했는데 ... hooks파일은 기존 Hooks를 사용하는 커스텀 파일들을 , 그 외의 유틸 함수들은 utils함수에서 관리할 예정입니다.
+- `utils/RegExpCheck.js`
+```js
+export const checkPassword = function (str) {
+    const regExp =
+        /^(?=.*[!@#$%^&*()_+|<>?:{}])(?=.*[a-zA-Z])(?=.*[0-9]).{5,15}/i;
+    return regExp.test(str)
+};
+```    
+- 5~15자의 문자를 3가지 조건에 의해서 검사합니다. / / 리터럴 표현으로 정규식 표현을 묶고, ^ -> 입력 문자의 시작입니다. 
+- . -> 임의의 문자, * -> 0번이상 반복`({0,}과 동일한 표현)` () 하나의 하위 패턴으로 묶음, ?= > 전방 탐색 일치하는 패턴을 찾고 그값을 제외하지 않고 리턴,
+-  `[!@#$%^&*()_+|<>?:{}]` -> 특수문자 검사, 특수문자는 영어나 숫자처럼 범위처럼 묶을 수 없고, 직접 입력해줘야 한다
+-  `.{5,15}`수량자, 문자가 5~15개 범위로 제한,
+-  `/i` 플래그,-> 대소문자 구분하지 않고 검색
+---
+### Redux-Pender 적용.
+- 스터디 정규 진도에는 redux를 적용하지 않는다고 합니다만 redux 는 전역적으로 상태관리를 위한 아주 유용한 방법입니다.
+- `redux-Pender`가 내부적으로 비동기 처리를 해서 `dispatch` 함수를 비동기로 사용할 수 있게 됐습니다. 또한 기존 `redux-saga` 코드와 다르게 코드 수가 절반 이하로 감소했습니다.
+- 서버에 세션을 검사하는 API를 추가해, 로그인하지않은 유저는 `/login` 페이지로 이동하게 하기 위해 App.jsx에 세션 검사 API를 적용하고, login페이지로 push 하는 코드를 적용했습니다.
+- App.jsx에서 `useHistory` 함수를 사용하기 위해 `BrowerRouter`를 App.jsx -> index.js로 옮겨서 감싸줬습니다.
 
 
 
