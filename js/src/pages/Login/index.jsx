@@ -1,11 +1,93 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import MainInput from '../../components/input/MainInput';
 import MainButton from '../../components/button/MainButton';
 import useInput from '../../hooks/useInput';
 import logoImg from '../../assets/logo/logo.png';
 import { COLORS } from '../../components/Colors';
 import { Link } from 'react-router-dom';
+import { loginAction, userCleanAction } from '../../module/user';
+
+const LoginPage = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const { user } = useSelector((state) => state.user);
+    const [id, onChangeId] = useInput('');
+    const [password, onChangePassword] = useInput('');
+    const [focus, setFocus] = useState(false);
+    const onLogin = useCallback(
+        async (e) => {
+            if (id && password) {
+                try {
+                    await dispatch(
+                        loginAction({
+                            userId: id,
+                            password,
+                        }),
+                    );
+                    alert('로그인 성공!');
+                } catch (err) {
+                    console.error(err);
+                    alert('로그인을 실패했습니다!');
+                }
+            } else {
+                alert('값을 입력해주세요.');
+            }
+        },
+        [id, password],
+    );
+
+    const onFocus = () => {
+        setFocus(true);
+    };
+
+    const onLoginKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            onLogin();
+        }
+    };
+    useEffect(() => {
+        if (user) {
+            history.push('/');
+        }
+    }, [user]);
+
+    return (
+        <LoginPageWrapper>
+            {!focus && (
+                <div className="login-main">
+                    <img src={logoImg} alt="logo" />
+                    <div className="login-text">
+                        대학 생활을 더 편하고 즐겁게
+                    </div>
+                    <div className="login-everytime">에브리타임</div>
+                </div>
+            )}
+            <MainInput
+                value={id}
+                type="text"
+                handleFocus={onFocus}
+                onChange={onChangeId}
+                placeholder="아이디"
+            />
+            <MainInput
+                value={password || ''}
+                type="password"
+                handleFocus={onFocus}
+                onChange={onChangePassword}
+                placeholder="비밀번호"
+                onKeyPress={onLoginKeyPress}
+            />
+            <MainButton text="에브리타임 로그인" onClick={onLogin}></MainButton>
+            <Link to="/signup" className="signup-link">
+                회원가입
+            </Link>
+        </LoginPageWrapper>
+    );
+};
+export default LoginPage;
 const LoginPageWrapper = styled.div`
     padding: 30px 16px;
 
@@ -42,34 +124,3 @@ const LoginPageWrapper = styled.div`
         margin-bottom: 10px;
     }
 `;
-
-const LoginPage = () => {
-    const [id, onChangeId] = useInput('');
-    const [password, onChangePassword] = useInput('');
-    return (
-        <LoginPageWrapper>
-            <div className="login-main">
-                <img src={logoImg} alt="logo" />
-                <div className="login-text">대학 생활을 더 편하고 즐겁게</div>
-                <div className="login-everytime">에브리타임</div>
-            </div>
-            <MainInput
-                value={id}
-                type="text"
-                onChange={onChangeId}
-                placeholder="아이디"
-            />
-            <MainInput
-                value={password || ''}
-                type="text"
-                onChange={onChangePassword}
-                placeholder="비밀번호"
-            />
-            <MainButton text="에브리타임 로그인"></MainButton>
-            <Link to="/signup" className="signup-link">
-                회원가입
-            </Link>
-        </LoginPageWrapper>
-    );
-};
-export default LoginPage;

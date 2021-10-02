@@ -17,7 +17,7 @@ const Popular = () => {
             <BoardTitle more={true}>HOT 게시글</BoardTitle>
             {dummyHot.map((v) => (
                 <PreviewOnly
-                    key={v.key}
+                    key={v.title}
                     title={v.title}
                     date={v.date}
                     like={v.like}

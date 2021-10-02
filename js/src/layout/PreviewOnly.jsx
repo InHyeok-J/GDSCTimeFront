@@ -38,7 +38,6 @@ const PreviewOnlyWrapper = styled.div`
 `;
 
 const PreviewOnly = ({ title, date, like, comments }) => {
-    console.log(title);
     return (
         <PreviewOnlyWrapper>
             <div className="title">{title}</div>

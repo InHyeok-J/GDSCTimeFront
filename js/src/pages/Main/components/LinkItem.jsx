@@ -60,7 +60,6 @@ const LinkItem = ({ name, href, title }) => {
                 return homePageImg;
         }
     };
-    console.log(title, src);
     return (
         <ItemWrapper>
             <a className="icon-block" href={href} target="_blank">

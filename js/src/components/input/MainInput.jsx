@@ -26,6 +26,7 @@ const MainInput = ({
     handleFocus,
     placeholder,
     spellCheck,
+    onKeyPress,
 }) => {
     return (
         <CustomInput
@@ -36,6 +37,7 @@ const MainInput = ({
             onFocus={handleFocus}
             placeholder={placeholder}
             spellCheck={false}
+            onKeyPress={onKeyPress}
         />
     );
 };

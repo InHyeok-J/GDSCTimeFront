@@ -1,11 +1,10 @@
 import { combineReducers } from 'redux';
-import { all } from 'redux-saga/effects';
-import loading from './loading';
+import { penderReducer } from 'redux-pender';
+import user from './user';
 
-const rootReducer = combineReducers({ loading });
-
-export function* rootSaga() {
-    yield all([]);
-}
+const rootReducer = combineReducers({
+    user,
+    pender: penderReducer,
+});
 
 export default rootReducer;

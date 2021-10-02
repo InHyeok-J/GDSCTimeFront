@@ -16,14 +16,15 @@ const RealTimeBoard = () => {
     return (
         <RealTimeBoardWraaper className="board-wrapper">
             <BoardTitle more={false}>실시간 인기 글</BoardTitle>
-            {dummyRealtime.map((v) => (
+            {dummyRealtime.map((v, index) => (
                 <>
                     <PreviewProfile
-                        key={v.title}
+                        key={v.index}
                         nickname={v.nick}
                         date={v.date}
                     />
                     <PreviewBoard
+                        key={v.contents}
                         title={v.title}
                         contents={v.contents}
                         category={v.category}

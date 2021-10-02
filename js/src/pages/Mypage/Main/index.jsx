@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import arrowImg from '../../../assets/vector/arrow.svg';
 import profileImg from '../../../assets/img/temp.png';
 import { COLORS } from '../../../components/Colors';
 import Modal from 'react-modal';
 import CustomModal from '../../../components/Modal/CustomModal';
+import { logoutAction, userCleanAction } from '../../../module/user';
 
 const dummyUser = {
     id: 'idqwer1234',
@@ -15,6 +18,9 @@ const dummyUser = {
 };
 
 const MyPage = () => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const { user: userData } = useSelector((state) => state.user);
     const [isModal, setIsModal] = useState(false);
 
     const onModalOpen = () => {
@@ -27,6 +33,19 @@ const MyPage = () => {
         alert('회원탈퇴성공');
         setIsModal(false);
     };
+
+    const onLogOut = async () => {
+        try {
+            await dispatch(logoutAction());
+            alert('로그아웃 성공');
+            history.push('/login');
+        } catch (err) {
+            console.error(err);
+            alert('로그아웃 실패');
+        }
+    };
+    if (!userData) return null;
+
     return (
         <MyPageWrapper>
             <div className="mypage-top">
@@ -38,11 +57,11 @@ const MyPage = () => {
             <div className="mypage-profile board-wrapper">
                 <img src={profileImg} alt="profileimg" />
                 <div>
-                    <div className="mypage-profile-id">{dummyUser.id}</div>
+                    <div className="mypage-profile-id">{userData.userId}</div>
                     <div className="mypage-profile-body">
-                        {dummyUser.name}/ {dummyUser.nickname}
+                        {userData.name}/ {userData.nickname}
                     </div>
-                    <div className="mypage-profile-body">{dummyUser.major}</div>
+                    <div className="mypage-profile-body">{userData.major}</div>
                 </div>
             </div>
             <div className="mypage-account board-wrapper">
@@ -60,7 +79,9 @@ const MyPage = () => {
                 <div className="mypage-account-body" onClick={onModalOpen}>
                     회원 탈퇴
                 </div>
-                <div className="mypage-account-body">로그 아웃</div>
+                <div className="mypage-account-body" onClick={onLogOut}>
+                    로그 아웃
+                </div>
             </div>
             <Modal isOpen={isModal} style={modalStyle}>
                 <CustomModal
@@ -123,6 +144,7 @@ const MyPageWrapper = styled.div`
         margin-top: 10px;
         font-weight: 400;
         font-size: 0.8rem;
+        cursor: pointer;
     }
 `;
 
