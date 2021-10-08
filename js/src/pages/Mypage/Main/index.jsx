@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import arrowImg from '../../../assets/vector/arrow.svg';
 import profileImg from '../../../assets/img/temp.png';
 import { COLORS } from '../../../components/Colors';
 import Modal from 'react-modal';
 import CustomModal from '../../../components/Modal/CustomModal';
-import { logoutAction, userCleanAction } from '../../../module/user';
+import { logoutAction } from '../../../module/user';
+import ArrowTitle from '../../../layout/ArrowTitle';
 
 const dummyUser = {
     id: 'idqwer1234',
@@ -18,6 +18,7 @@ const dummyUser = {
 };
 
 const MyPage = () => {
+
     const dispatch = useDispatch();
     const history = useHistory();
     const { user: userData } = useSelector((state) => state.user);
@@ -44,16 +45,12 @@ const MyPage = () => {
             alert('로그아웃 실패');
         }
     };
+
     if (!userData) return null;
 
     return (
         <MyPageWrapper>
-            <div className="mypage-top">
-                <Link to="/">
-                    <img src={arrowImg} alt="leftarrow" />
-                </Link>
-                <span>내 정보</span>
-            </div>
+            <ArrowTitle to="/" text="내 정보" />
             <div className="mypage-profile board-wrapper">
                 <img src={profileImg} alt="profileimg" />
                 <div>
@@ -100,21 +97,7 @@ export default MyPage;
 
 const MyPageWrapper = styled.div`
     padding: 5px 16px;
-    .mypage-top {
-        width: 100%;
-        height: 50px;
-        display: flex;
-        align-items: center;
-    }
-    .mypage-top > span {
-        margin-left: 20px;
-        font-weight: 500;
-        display: inline-block;
-    }
-    .mypage-top > a > img {
-        width: 28px;
-        transform: rotate(180deg);
-    }
+
     .mypage-profile > img {
         width: 48px;
         border-radius: 10px;

@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
-import {
-    BrowserRouter,
-    Switch,
-    Route,
-    useHistory,
-    withRouter,
-} from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserAction } from './module/user';
 import Logo from './assets/logo/logo.png';
 import Main from './pages/Main';
 import Board from './pages/Board';
@@ -15,9 +12,7 @@ import Login from './pages/Login';
 import MyPage from './pages/Mypage/Main';
 import AuthPage from './pages/Mypage/Auth';
 import EditPage from './pages/Mypage/Edit';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserAction } from './module/user';
+import Setting from './pages/Setting';
 
 const App = () => {
     const dispatch = useDispatch();
@@ -55,6 +50,7 @@ const App = () => {
                 <Route exact path="/mypage" component={MyPage} />
                 <Route exact path="/mypage/auth" component={AuthPage} />
                 <Route exact path="/mypage/edit" component={EditPage} />
+                <Route exact path="/setting" component={Setting} />
             </Switch>
         </HelmetProvider>
     );
