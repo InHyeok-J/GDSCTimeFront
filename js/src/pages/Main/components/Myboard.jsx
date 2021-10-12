@@ -13,7 +13,9 @@ const MyBoardWraaper = styled.div`
 const MyBoard = () => {
     return (
         <MyBoardWraaper className="board-wrapper">
-            <BoardTitle more={true}>즐겨찾는 게시판</BoardTitle>
+            <BoardTitle more={true} to="board">
+                즐겨찾는 게시판
+            </BoardTitle>
             {dummyMyboard.map((v) => (
                 <BoardBody
                     category={v.category}

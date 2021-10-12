@@ -1,20 +1,28 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import ShowMore from '../components/ShowMore';
 
 const TitleWrapper = styled.div`
     width: auto;
     height: 40px;
-    font-size: 1.2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    ${(props) =>
+        props.size === 'middle'
+            ? css`
+                  font-size: 0.9rem;
+                  height: 25px;
+              `
+            : css`
+                  font-size: 1.1.rem;
+              `}
 `;
-const BoardTitle = ({ children, more }) => {
+const BoardTitle = ({ children, more, size, to }) => {
     return (
-        <TitleWrapper>
+        <TitleWrapper size={size}>
             {children}
-            {more && <ShowMore />}
+            {more && <ShowMore to={to} size={size} />}
         </TitleWrapper>
     );
 };

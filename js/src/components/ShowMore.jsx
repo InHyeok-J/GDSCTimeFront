@@ -7,10 +7,12 @@ import { Link } from 'react-router-dom';
 const ShowMoreWrapper = styled.div`
     display: inline-block;
     a {
+        display: flex;
         color: ${COLORS.red};
+        font-size: 0.8rem;
+        font-weight: 400;
     }
-    font-size: 0.8rem;
-    font-weight: 400;
+
     img {
         width: 10px;
         position: relative;
@@ -21,10 +23,10 @@ const ShowMoreWrapper = styled.div`
     }
 `;
 
-const ShowMore = () => {
+const ShowMore = ({ to, size }) => {
     return (
-        <ShowMoreWrapper>
-            <Link to="/board">
+        <ShowMoreWrapper size={size}>
+            <Link to={`/${to}`}>
                 더 보기
                 <img src={RightImg} alt="right" />
             </Link>

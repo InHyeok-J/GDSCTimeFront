@@ -24,6 +24,9 @@ body {
     height: 100%;
     margin: 0 auto;
 }
+.img-rotate {
+    transform: rotate(180deg);
+}
 
 .top-navigation {
     position: sticky;
@@ -62,7 +65,7 @@ body {
     border-radius: 10px;
     /*위에까지가 보일러플레이트,*/
     box-sizing: border-box;
-    padding: 20px;
+    padding: 15px;
 }
 
 button {

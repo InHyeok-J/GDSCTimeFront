@@ -13,6 +13,10 @@ import MyPage from './pages/Mypage/Main';
 import AuthPage from './pages/Mypage/Auth';
 import EditPage from './pages/Mypage/Edit';
 import Setting from './pages/Setting';
+import BoardList from './pages/Board/BoardList';
+import BoardDetail from './pages/Board/BoardDetail';
+import SerachPage from './pages/Search';
+import PostPage from './pages/Board/Post';
 
 const App = () => {
     const dispatch = useDispatch();
@@ -44,6 +48,9 @@ const App = () => {
             <Switch>
                 <Route exact path="/" component={Main} />
                 <Route exact path="/board" component={Board} />
+                <Route exact path="/board/list" component={BoardList} />
+                <Route exact path="/board/detail/:id" component={BoardDetail} />
+                <Route exact path="/board/post" component={PostPage} />
                 <Route exact path="/alarm" component={Alarm} />
                 <Route exact path="/signup" component={SignUp} />
                 <Route exact path="/login" component={Login} />
@@ -51,6 +58,7 @@ const App = () => {
                 <Route exact path="/mypage/auth" component={AuthPage} />
                 <Route exact path="/mypage/edit" component={EditPage} />
                 <Route exact path="/setting" component={Setting} />
+                <Route exact path="/search" component={SerachPage} />
             </Switch>
         </HelmetProvider>
     );

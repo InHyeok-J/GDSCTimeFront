@@ -5,20 +5,23 @@ import commentImg from '../assets/icon/comment.png';
 import { COLORS } from '../components/Colors';
 
 const PreviewBoardWrapper = styled.div`
-    height: 100px;
+    height: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
     .title {
-        font-size: 1.1rem;
+        font-size: 0.9rem;
     }
     .contents {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         font-weight: 200;
-        height: 34px;
+        line-height: 20px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
     .category {
         color: ${COLORS.grey_text};
+        font-size: 0.8rem;
     }
     .category-block {
         display: flex;
@@ -26,20 +29,22 @@ const PreviewBoardWrapper = styled.div`
         align-items: center;
     }
     img {
-        width: 12px;
-        height: 12px;
+        width: 9px;
+        height: 9px;
         margin-right: 5px;
     }
     .like {
         color: ${COLORS.red};
         margin-right: 10px;
+        font-size: 0.7rem;
     }
     .comments {
+        font-size: 0.7rem;
         color: ${COLORS.blue};
         width: auto;
     }
     div + div {
-        margin-top: 10px;
+        margin-top: 5px;
     }
 `;
 

@@ -14,7 +14,9 @@ const PopularWrapper = styled.div`
 const Popular = () => {
     return (
         <PopularWrapper className="board-wrapper">
-            <BoardTitle more={true}>HOT 게시글</BoardTitle>
+            <BoardTitle more={true} to="board">
+                HOT 게시글
+            </BoardTitle>
             {dummyHot.map((v) => (
                 <PreviewOnly
                     key={v.title}

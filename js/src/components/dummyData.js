@@ -1,3 +1,167 @@
+export const dummyPost = {
+    date: '2021-10-18T10:50',
+    title: 'gdsc 게시글',
+    contents:
+        '내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용 배가고파요 ~~~ 아 운동가야하는데 귀찮죠',
+    like: 5,
+    comments: [
+        {
+            id: 1,
+            nickname: 'qwer',
+            contents: '오우 나이수',
+            date: '2021-10-18T10:50',
+            like: 1,
+        },
+        {
+            id: 2,
+            nickname: 'qwer',
+            contents: 'GDSC 재밌어요',
+            date: '2021-10-18T10:50',
+            like: 2,
+        },
+        {
+            id: 3,
+            nickname: 'qwer',
+            contents: '지원 잘했당',
+            date: '2021-10-18T10:50',
+            like: 1,
+        },
+        {
+            id: 4,
+            nickname: 'qwer',
+            contents: '아 숙제 너무 빡세',
+            date: '2021-10-18T10:50',
+            like: 1,
+        },
+    ],
+};
+export const dummyBoardHot = [
+    {
+        id: 1,
+        title: '아주나이스',
+        user: {
+            id: 1,
+        },
+        contents: 'hellow word 잘부탁드립니다아아앙아아',
+        category: '자유게시판',
+        comments: 35,
+        like: 20,
+        date: '2021-09-18T10:50',
+    },
+    {
+        id: 2,
+        title: '아주나이스',
+        user: {
+            id: 1,
+        },
+        contents: 'hellow hellow word 잘부탁드립니다아아앙아아word',
+        category: '자유게시판',
+        comments: 35,
+        like: 20,
+        date: '2021-09-18T10:50',
+    },
+];
+
+export const dummyBoard = [
+    {
+        id: 1,
+        title: '더미데이터 싫어용',
+        user: {
+            id: 1,
+        },
+        contents:
+            '반갑습니다 잘부탁드려ㅑ요 하위요 호잉 아 더미데이터 넣기 귀찮네 faker라이브러리 써야하나..',
+        category: '자유게시판',
+        comments: 35,
+        like: 20,
+        date: '2021-09-18T10:50',
+    },
+    {
+        id: 2,
+        title: '아주나이스',
+        user: {
+            id: 1,
+        },
+        contents: 'hellow word',
+        category: '자유게시판',
+        comments: 35,
+        like: 20,
+        date: '2021-09-18T10:50',
+    },
+    {
+        id: 3,
+        title: '아주나이스',
+        user: {
+            id: 1,
+        },
+        contents: 'hellow word',
+        category: '자유게시판',
+        comments: 35,
+        like: 20,
+        date: '2021-09-18T10:50',
+    },
+    {
+        id: 4,
+        title: '아주나이스',
+        user: {
+            id: 1,
+        },
+        contents: 'hellow word',
+        category: '자유게시판',
+        comments: 35,
+        like: 20,
+        date: '2021-09-18T10:50',
+    },
+    {
+        id: 5,
+        title: '아주나이스',
+        user: {
+            id: 1,
+        },
+        contents: 'hellow word',
+        category: '자유게시판',
+        comments: 35,
+        like: 20,
+        date: '2021-09-18T10:50',
+    },
+    {
+        id: 6,
+        title: '아주나이스',
+        user: {
+            id: 1,
+        },
+        contents: 'hellow word',
+        category: '자유게시판',
+        comments: 35,
+        like: 20,
+        date: '2021-09-18T10:50',
+    },
+    {
+        id: 7,
+        title: '아주나이스',
+        user: {
+            id: 1,
+        },
+        contents: 'hellow word',
+        category: '자유게시판',
+        comments: 35,
+        like: 20,
+        date: '2021-09-18T10:50',
+    },
+    {
+        id: 8,
+        title: '아주나이스',
+        user: {
+            id: 1,
+        },
+        contents: 'hellow word',
+        category: '자유게시판',
+        comments: 35,
+        like: 20,
+        date: '2021-09-18T10:50',
+    },
+];
+
 export const universityLinkData = [
     {
         title: 'homepage',
@@ -82,25 +246,25 @@ export const dummyRealtime = [
 export const dummyHot = [
     {
         title: '나 오늘 생일이다',
-        date: '14:18',
+        date: '2021-09-18T10:50',
         like: 10,
         comments: 20,
     },
     {
         title: 'ITM 너무 좋은 학과인듯',
-        date: '15:30',
+        date: '2021-09-18T10:50',
         like: 20,
         comments: 10,
     },
     {
         title: '집가고 싶다',
-        date: '00:00',
+        date: '2021-09-18T10:50',
         like: 101,
         comments: 5,
     },
     {
         title: '여자친구랑 헤어졌다 ㅜㅜ',
-        date: '20:01',
+        date: '2021-09-18T10:50',
         like: 30,
         comments: 5,
     },

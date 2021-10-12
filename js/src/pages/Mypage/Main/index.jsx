@@ -18,7 +18,6 @@ const dummyUser = {
 };
 
 const MyPage = () => {
-
     const dispatch = useDispatch();
     const history = useHistory();
     const { user: userData } = useSelector((state) => state.user);
@@ -50,7 +49,7 @@ const MyPage = () => {
 
     return (
         <MyPageWrapper>
-            <ArrowTitle to="/" text="내 정보" />
+            <ArrowTitle text="내 정보" />
             <div className="mypage-profile board-wrapper">
                 <img src={profileImg} alt="profileimg" />
                 <div>
