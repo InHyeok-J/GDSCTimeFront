@@ -8,18 +8,23 @@ import MyBoard from './components/MyBoard';
 import RealTimeBoard from './components/RealTimeBoard';
 import Popular from './components/Popular';
 import Setting from './components/Setting';
+import { useHistory } from 'react-router';
+import { getUserAction } from '../../module/user';
+import { useDispatch } from 'react-redux';
 
 const MainWrapper = styled.div`
     padding-top: 70px;
     padding-bottom: 50px;
 `;
 
-const Index = () => {
+const Index = ({ match }) => {
     const defaultSetting = {
         isMine: true,
         isRealTime: true,
         isHot: true,
     };
+    const history = useHistory();
+    const dispatch = useDispatch();
     const [setting, setSetting] = useState(defaultSetting);
     useEffect(() => {
         const storage = window.localStorage.getItem('setting');
@@ -37,6 +42,7 @@ const Index = () => {
                 isHot: storageJson.isHot,
             });
         }
+        dispatch(getUserAction());
     }, []);
 
     return (

@@ -13,7 +13,6 @@ import { loginAction, userCleanAction } from '../../module/user';
 const LoginPage = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const { user } = useSelector((state) => state.user);
     const [id, onChangeId] = useInput('');
     const [password, onChangePassword] = useInput('');
     const [focus, setFocus] = useState(false);
@@ -23,11 +22,12 @@ const LoginPage = () => {
                 try {
                     await dispatch(
                         loginAction({
-                            userId: id,
+                            user_id: id,
                             password,
                         }),
                     );
                     alert('로그인 성공!');
+                    history.push('/');
                 } catch (err) {
                     console.error(err);
                     alert('로그인을 실패했습니다!');
@@ -48,11 +48,6 @@ const LoginPage = () => {
             onLogin();
         }
     };
-    useEffect(() => {
-        if (user) {
-            history.push('/');
-        }
-    }, [user]);
 
     return (
         <LoginPageWrapper>

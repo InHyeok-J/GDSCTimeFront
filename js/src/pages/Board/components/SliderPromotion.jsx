@@ -31,7 +31,7 @@ const SliderPromotion = () => {
                 ))}
             </div>
             <div className="board-wrapper">
-                <BoardTitle more="true" size="middle" to="board/list">
+                <BoardTitle more="true" size="middle" to="board/list/9">
                     홍보 게시판
                 </BoardTitle>
                 {dummyBoardHot.map((board) => (

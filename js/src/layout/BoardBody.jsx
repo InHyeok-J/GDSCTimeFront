@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import newImg from '../assets/icon/new.svg';
 import { COLORS } from '../components/Colors';
-
+import { CategoryMapper } from '../utils/category';
 const BoardBodyWrapper = styled.div`
     display: flex;
     justify-content: space-between;
@@ -38,7 +38,7 @@ const BoardBodyWrapper = styled.div`
 const BoardBody = ({ category, title }) => {
     return (
         <BoardBodyWrapper>
-            <span className="title-block">{category}</span>
+            <span className="title-block">{CategoryMapper[category]}</span>
             <span className="text-block">{title}</span>
             <span className="new-icon">
                 <img src={newImg} alt="new" />

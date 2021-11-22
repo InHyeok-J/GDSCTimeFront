@@ -8,6 +8,7 @@ const SIGNUP = 'user/SIGNUP';
 const LOGIN = 'user/LOGIN';
 const LOGOUT = 'user/LOGOUT';
 const GET_USER = 'user/GET_USER';
+const CHANGE_NICKNAME = 'user/CHANGE_NICKNAME';
 
 export const signUpAction = createAction(SIGNUP, userApi.signUp);
 export const signUpCleanAction = createAction(INIT_SIGNUP);
@@ -15,6 +16,10 @@ export const loginAction = createAction(LOGIN, userApi.login);
 export const logoutAction = createAction(LOGOUT, userApi.logout);
 export const userCleanAction = createAction(INIT_USER);
 export const getUserAction = createAction(GET_USER, userApi.getUser);
+export const changeNicknameAction = createAction(
+    CHANGE_NICKNAME,
+    userApi.changeNickname,
+);
 
 const initialState = {
     signup: null,

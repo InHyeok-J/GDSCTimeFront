@@ -96,11 +96,12 @@ const SignUpPage = () => {
                 await dispatch(
                     signUpAction({
                         name,
-                        userId: id,
+                        user_id: id,
                         email,
                         nickname,
                         password,
                         major,
+                        hp: 'test',
                     }),
                 );
                 history.push('/login');

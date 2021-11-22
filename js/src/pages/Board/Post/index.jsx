@@ -6,6 +6,8 @@ import cameraImg from '../../../assets/icon/camera.svg';
 import { COLORS } from '../../../components/Colors';
 import checkedImg from '../../../assets/vector/checked.svg';
 import useInput from '../../../hooks/useInput';
+import { useDispatch } from 'react-redux';
+import { postBoardAction } from '../../../module/board';
 
 const PostPageWrapper = styled.div`
     padding: 15px 10px 50px 10px;
@@ -98,9 +100,14 @@ const PostPageWrapper = styled.div`
         }
     }
 `;
-const PostPage = () => {
+const PostPage = ({ match }) => {
+    const category = match.params.id;
+    console.log(category);
     const [anonymity, , setAnonymity] = useInput(false);
+    const [title, onChangeTitle] = useInput('');
+    const [content, onChangeContent] = useInput('');
     const history = useHistory();
+    const dispatch = useDispatch();
     const imageInput = useRef();
 
     const onAnonymity = useCallback(
@@ -114,6 +121,23 @@ const PostPage = () => {
         imageInput.current.click();
     }, [imageInput.current]);
 
+    const onSubmitPost = useCallback(async () => {
+        try {
+            await dispatch(
+                postBoardAction({
+                    title,
+                    content,
+                    is_secret: anonymity,
+                    category_id: parseInt(category),
+                }),
+            ).then((res) => {
+                history.push(`/board/list/${category}`);
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [title, anonymity, content]);
+
     return (
         <PostPageWrapper>
             <div className="post-top">
@@ -121,15 +145,24 @@ const PostPage = () => {
                     <img
                         src={xVectorImg}
                         alt="xbutton"
-                        onClick={() => history.goBack()}
+                        onClick={() => history.push(`/board/list/${category}`)}
                     />
                     <span>글 쓰기</span>
                 </div>
-                <button>완료</button>
+                <button onClick={onSubmitPost}>완료</button>
             </div>
             <div className="post-contents">
-                <input type="text" placeholder="제목" />
-                <textarea placeholder="내용을 입력하세요" />
+                <input
+                    type="text"
+                    placeholder="제목"
+                    value={title}
+                    onChange={onChangeTitle}
+                />
+                <textarea
+                    placeholder="내용을 입력하세요"
+                    value={content}
+                    onChange={onChangeContent}
+                />
             </div>
             <div className="fixed-wrapper">
                 <div className="post-bottom">

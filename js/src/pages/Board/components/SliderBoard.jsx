@@ -32,7 +32,7 @@ const initialState = {
     isInfo: false,
 };
 const SliderBoard = () => {
-    const [boardSetting, setBoadrSetting] = useState(initialState);
+    const [boardSetting, setBoardSetting] = useState(initialState);
 
     useEffect(() => {
         const storage = window.localStorage.getItem('boardSetting');
@@ -42,11 +42,11 @@ const SliderBoard = () => {
                 JSON.stringify(initialState),
             );
         }
-        setBoadrSetting(JSON.parse(storage));
+        setBoardSetting(JSON.parse(storage));
     }, []);
 
     const onPinToggle = (e) => {
-        setBoadrSetting({
+        setBoardSetting({
             ...boardSetting,
             [e.target.name]: !boardSetting[e.target.name],
         });
@@ -70,7 +70,7 @@ const SliderBoard = () => {
                     onClick={onPinToggle}
                 />
                 <span className="slider-board-category">
-                    <Link to={`/board/list`}>자유게시판</Link>
+                    <Link to={`/board/list/1`}>자유게시판</Link>
                 </span>
             </div>
             <div>
@@ -80,7 +80,7 @@ const SliderBoard = () => {
                     onClick={onPinToggle}
                 />
                 <span className="slider-board-category">
-                    <Link to={`/board/list`}>비밀게시판</Link>
+                    <Link to={`/board/list/2`}>비밀게시판</Link>
                 </span>
             </div>
             <div>
@@ -90,7 +90,7 @@ const SliderBoard = () => {
                     onClick={onPinToggle}
                 />
                 <span className="slider-board-category">
-                    <Link to={`/board/list`}>졸업생 게시판</Link>
+                    <Link to={`/board/list/3`}>졸업생 게시판</Link>
                 </span>
             </div>
             <div>
@@ -100,7 +100,7 @@ const SliderBoard = () => {
                     onClick={onPinToggle}
                 />
                 <span className="slider-board-category">
-                    <Link to={`/board/list`}>새내기 게시판</Link>
+                    <Link to={`/board/list/4`}>새내기 게시판</Link>
                 </span>
             </div>
             <div>
@@ -110,7 +110,7 @@ const SliderBoard = () => {
                     onClick={onPinToggle}
                 />
                 <span className="slider-board-category">
-                    <Link to={`/board/list`}>시사 이슈</Link>
+                    <Link to={`/board/list/5`}>시사 이슈</Link>
                 </span>
             </div>
             <div>
@@ -120,7 +120,7 @@ const SliderBoard = () => {
                     onClick={onPinToggle}
                 />
                 <span className="slider-board-category">
-                    <Link to={`/board/list`}>정보 게시판</Link>
+                    <Link to={`/board/list/6`}>정보 게시판</Link>
                 </span>
             </div>
         </SliderBoardWrapper>

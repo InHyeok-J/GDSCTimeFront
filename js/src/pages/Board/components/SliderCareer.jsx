@@ -33,7 +33,7 @@ const SliderCareer = () => {
                 ))}
             </div>
             <div className="board-wrapper">
-                <BoardTitle more="true" size="middle" to="board/list">
+                <BoardTitle more="true" size="middle" to="board/list/8">
                     공기업 게시판
                 </BoardTitle>
                 {dummyBoardHot.map((board) => (

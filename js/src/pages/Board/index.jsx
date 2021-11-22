@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import Slider from 'react-slick';
 import BottomNavigation from '../../layout/BottomNavigation';
@@ -8,6 +8,8 @@ import UnderLine from './components/UnderLine';
 import SliderBoard from './components/SliderBoard';
 import SliderCareer from './components/SliderCareer';
 import SliderPromotion from './components/SliderPromotion';
+import { useDispatch } from 'react-redux';
+import { INIT_BOARD } from '../../module/board';
 
 const MainWrapper = styled.div`
     .board-page-title {
@@ -23,7 +25,7 @@ const MainWrapper = styled.div`
 const Index = () => {
     const [sliderId, setSliderId] = useState(0);
     const currentSlider = useRef();
-
+    const dispatch = useDispatch();
     const moveSlider = (index) => {
         setSliderId(index);
         currentSlider.current.slickGoTo(index);
@@ -38,6 +40,12 @@ const Index = () => {
         afterChange: (index) => setSliderId(index),
         ref: currentSlider,
     };
+
+    useEffect(async () => {
+        await dispatch({
+            type: INIT_BOARD,
+        });
+    }, []);
     return (
         <MainWrapper>
             <div className="board-page-title">

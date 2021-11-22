@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { COLORS } from '../../../components/Colors';
@@ -6,6 +6,11 @@ import { dummyBoard } from '../../../components/dummyData';
 import ArrowTitle from '../../../layout/ArrowTitle';
 import PreviewBoard from '../../../layout/PreviewBoard';
 import pencilImg from '../../../assets/icon/pencil.svg';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import board, { getBoardListAction } from '../../../module/board';
+import { CategoryMapper } from '../../../utils/category';
+
 const BoardListPageWrapper = styled.div`
     width: 100%;
     padding: 0px 10px 50px 10px;
@@ -47,31 +52,43 @@ const BoardListPageWrapper = styled.div`
     }
 `;
 
-const BoardListPage = () => {
+const BoardListPage = ({ match }) => {
+    const category = match.params.id;
+    const dispatch = useDispatch();
+    const { boardlist } = useSelector((state) => state.board);
+
+    useEffect(async () => {
+        await dispatch(getBoardListAction(category));
+    }, []);
+    console.log(boardlist);
+
+    if (!boardlist) return <div>데이터받아오는중...</div>;
+
     return (
         <BoardListPageWrapper>
             <ArrowTitle search="search">
                 <div className="board-category">
-                    어떤 게시판<div>GDDS</div>
+                    {CategoryMapper[category]}
+                    <div>GDDS</div>
                 </div>
             </ArrowTitle>
             <div className="board-list-block">
-                {dummyBoard.map((board) => (
+                {boardlist.map((board) => (
                     <Link to={`/board/detail/${board.id}`}>
                         <PreviewBoard
-                            key={board.id}
+                            key={board.board_category_id}
                             className="preview-board"
                             title={board.title}
-                            contents={board.contents}
-                            like={board.like}
-                            comments={board.comments}
+                            contents={board.content}
+                            like={board.like_num}
+                            comments={board.comment_num}
                         />
                     </Link>
                 ))}
             </div>
 
             <div className="board-post-link fixed-button">
-                <Link to="/board/post">
+                <Link to={`/board/post/${category}`}>
                     <img src={pencilImg} alt="pencilimg" />
                     글쓰기
                 </Link>

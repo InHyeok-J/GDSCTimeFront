@@ -32,7 +32,7 @@ const ArrowTitle = ({ children, to, search }) => {
     return (
         <ArrowTitleWrapper>
             <div className="arrow-title-left-block">
-                <button onClick={() => history.goBack()}>
+                <button onClick={() => history.push('/board')}>
                     <img src={arrowImg} className="img-rotate" alt="이전버튼" />
                 </button>
                 <span>{children}</span>

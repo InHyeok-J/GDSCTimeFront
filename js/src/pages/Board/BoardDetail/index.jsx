@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../../../components/Colors';
 import ArrowTitle from '../../../layout/ArrowTitle';
@@ -10,6 +10,136 @@ import { dummyPost } from '../../../components/dummyData';
 import useInput from '../../../hooks/useInput';
 import checkedImg from '../../../assets/vector/checked.svg';
 import sendImg from '../../../assets/icon/send.png';
+import { useDispatch } from 'react-redux';
+import {
+    getBoardDetailAction,
+    getBoardCommentAction,
+    postCommentAction,
+} from '../../../module/board';
+import { useSelector } from 'react-redux';
+import { DateChange } from '../../../utils/dateChange';
+import { CategoryMapper } from '../../../utils/category';
+import { useHistory } from 'react-router';
+
+const BoardDetailPage = ({ match }) => {
+    const postId = match.params.id;
+    const [comment, onChangeComment] = useInput('');
+    const [anonymity, , setAnonymity] = useInput(false);
+    const { boarddetail, boardcomment } = useSelector((state) => state.board);
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const onAnonymity = useCallback(
+        (e) => {
+            setAnonymity(!anonymity);
+        },
+        [anonymity],
+    );
+    useEffect(async () => {
+        await dispatch(getBoardDetailAction(postId)).catch((err) => {
+            console.error(err);
+        });
+    }, []);
+    useEffect(async () => {
+        await dispatch(getBoardCommentAction(postId)).catch((err) => {
+            console.error(err);
+        });
+    }, []);
+
+    const onSubmitComment = useCallback(async () => {
+        try {
+            await dispatch(
+                postCommentAction({
+                    board_id: postId,
+                    is_secret: anonymity,
+                    content: comment,
+                }),
+            ).then((res) => {
+                console.log(res);
+                location.reload();
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }, [comment]);
+
+    if (!boarddetail || !boardcomment) return <div>데이터 받아오는중...</div>;
+    console.log(boardcomment);
+    return (
+        <BoardDetailPageWrapper>
+            <div className="padding-container">
+                <ArrowTitle search="search">
+                    <div className="board-category">
+                        {CategoryMapper[boarddetail.board_category_id]}
+                        <div>GDDS</div>
+                    </div>
+                </ArrowTitle>
+                <PreviewBoardProfile
+                    date={DateChange(boarddetail.created_at)}
+                />
+                <div className="post-container">
+                    <div className="post-title">{boarddetail.title}</div>
+                    <div className="post-contents">{boarddetail.content}</div>
+                    <div className="like-comments-block ">
+                        <span className="like-comments">
+                            <span className="like">
+                                <img src={likeImg} alt="like" />
+                                {boarddetail.like_num}
+                            </span>
+                            <span className="comments">
+                                <img src={commentImg} alt="comments" />
+                                {boarddetail.comment_num}
+                            </span>
+                        </span>
+                    </div>
+                    <button className="like-button">
+                        <img src={likeImg} alt="like" />
+                        공감
+                    </button>
+                </div>
+                <div className="comments-container">
+                    {boardcomment.map((comments) => (
+                        <Comment
+                            key={comments.id}
+                            contents={comments.content}
+                            date={comments.created_at}
+                        />
+                    ))}
+                </div>
+            </div>
+
+            <div className="comment-wrapper">
+                <div className="comment">
+                    <button onClick={onAnonymity}>
+                        <input
+                            type="checkbox"
+                            name="anonymity"
+                            readOnly
+                            checked={anonymity}
+                        />
+                        <Label htmlFor="anonymity" anonymity={anonymity}>
+                            익명
+                        </Label>
+                    </button>
+                    <input
+                        value={comment}
+                        placeholder="댓글을 입력해주세요"
+                        onChange={onChangeComment}
+                    />
+                    <button onClick={onSubmitComment}>
+                        <img src={sendImg} alr="send" />
+                    </button>
+                </div>
+            </div>
+        </BoardDetailPageWrapper>
+    );
+};
+
+export default BoardDetailPage;
+
+const Label = styled.label`
+    font-size: 0.8rem;
+    color: ${(props) => (props.anonymity ? COLORS.red : COLORS.grey_text)};
+`;
 
 const BoardDetailPageWrapper = styled.div`
     width: 100%;
@@ -133,87 +263,4 @@ const BoardDetailPageWrapper = styled.div`
             box-sizing: border-box;
         }
     }
-`;
-
-const BoardDetailPage = () => {
-    const [comment, onChangeComment] = useInput('');
-    const [anonymity, , setAnonymity] = useInput(false);
-    const onAnonymity = useCallback(
-        (e) => {
-            setAnonymity(!anonymity);
-        },
-        [anonymity],
-    );
-
-    return (
-        <BoardDetailPageWrapper>
-            <div className="padding-container">
-                <ArrowTitle search="search">
-                    <div className="board-category">
-                        어떤 게시판<div>GDDS</div>
-                    </div>
-                </ArrowTitle>
-                <PreviewBoardProfile date={dummyPost.date} />
-                <div className="post-container">
-                    <div className="post-title">{dummyPost.title}</div>
-                    <div className="post-contents">{dummyPost.contents}</div>
-                    <div className="like-comments-block ">
-                        <span className="like-comments">
-                            <span className="like">
-                                <img src={likeImg} alt="like" />
-                                {dummyPost.like}
-                            </span>
-                            <span className="comments">
-                                <img src={commentImg} alt="comments" />
-                                {dummyPost.comments.length}
-                            </span>
-                        </span>
-                    </div>
-                    <button className="like-button">
-                        <img src={likeImg} alt="like" />
-                        공감
-                    </button>
-                </div>
-                <div className="comments-container">
-                    {dummyPost.comments.map((comments) => (
-                        <Comment
-                            key={comments.id}
-                            contents={comments.contents}
-                            date={comments.date}
-                        />
-                    ))}
-                </div>
-            </div>
-
-            <div className="comment-wrapper">
-                <div className="comment">
-                    <button onClick={onAnonymity}>
-                        <input
-                            type="checkbox"
-                            name="anonymity"
-                            checked={anonymity}
-                        />
-                        <Label htmlFor="anonymity" anonymity={anonymity}>
-                            익명
-                        </Label>
-                    </button>
-                    <input
-                        value={comment}
-                        placeholder="댓글을 입력해주세요"
-                        onChange={onChangeComment}
-                    />
-                    <button>
-                        <img src={sendImg} alr="send" />
-                    </button>
-                </div>
-            </div>
-        </BoardDetailPageWrapper>
-    );
-};
-
-export default BoardDetailPage;
-
-const Label = styled.label`
-    font-size: 0.8rem;
-    color: ${(props) => (props.anonymity ? COLORS.red : COLORS.grey_text)};
 `;

@@ -53,7 +53,7 @@ const MyPage = () => {
             <div className="mypage-profile board-wrapper">
                 <img src={profileImg} alt="profileimg" />
                 <div>
-                    <div className="mypage-profile-id">{userData.userId}</div>
+                    <div className="mypage-profile-id">{userData.user_id}</div>
                     <div className="mypage-profile-body">
                         {userData.name}/ {userData.nickname}
                     </div>

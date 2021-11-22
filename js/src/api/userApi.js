@@ -17,5 +17,11 @@ export const logout = async () => {
 
 export const getUser = async () => {
     const response = await axios.get('/api/user');
+    console.log(response.data);
+    return response.data.data;
+};
+
+export const changeNickname = async (data) => {
+    const response = await axios.patch('/api/user', data);
     return response.data.data;
 };
