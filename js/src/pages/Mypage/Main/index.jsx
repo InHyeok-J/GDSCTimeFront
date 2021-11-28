@@ -49,7 +49,7 @@ const MyPage = () => {
 
     return (
         <MyPageWrapper>
-            <ArrowTitle text="내 정보" />
+            <ArrowTitle text="내 정보" to="/" />
             <div className="mypage-profile board-wrapper">
                 <img src={profileImg} alt="profileimg" />
                 <div>

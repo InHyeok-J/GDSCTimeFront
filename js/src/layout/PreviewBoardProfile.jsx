@@ -22,12 +22,15 @@ const PreviewBoardProfileWrapper = styled.div`
     }
 `;
 
-const PreviewBoardProfile = ({ date }) => {
+const PreviewBoardProfile = ({ date, nickname }) => {
+    console.log(nickname);
     return (
         <PreviewBoardProfileWrapper>
             <img src={profileImg} alt="프로필이미지" />
             <div className="name-date-block">
-                <div className="profile-nickname">익명</div>
+                <div className="profile-nickname">
+                    {nickname ? nickname : '익명'}
+                </div>
                 <div className="profile-date">{DateChange(date)}</div>
             </div>
         </PreviewBoardProfileWrapper>

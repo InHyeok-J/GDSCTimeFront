@@ -29,17 +29,17 @@ const PreviewBoardWrapper = styled.div`
         align-items: center;
     }
     img {
-        width: 9px;
-        height: 9px;
+        width: 11px;
+        height: 11px;
         margin-right: 5px;
     }
     .like {
         color: ${COLORS.red};
         margin-right: 10px;
-        font-size: 0.7rem;
+        font-size: 0.85rem;
     }
     .comments {
-        font-size: 0.7rem;
+        font-size: 0.85rem;
         color: ${COLORS.blue};
         width: auto;
     }

@@ -27,6 +27,16 @@ const CommentWrapper = styled.div`
             font-weight: bold;
         }
     }
+    .comment-like {
+        padding-left: 5px;
+        font-size: 0.75rem;
+        img {
+            padding: 0 3px;
+            width: 10px;
+            height: 10px;
+        }
+        color: ${COLORS.red};
+    }
     .comment-like-more {
         width: 50px;
         padding: 3px;
@@ -56,8 +66,20 @@ const CommentWrapper = styled.div`
         color: ${COLORS.grey_text};
     }
 `;
-
-const Comment = ({ contents, date }) => {
+const NicknameSpan = styled.span`
+    color: ${(props) => (props.isOwner ? COLORS.green : 'black')};
+`;
+const Comment = ({
+    likeNum,
+    contents,
+    date,
+    nickname,
+    onClickHandler,
+    id,
+    isOwner,
+    commentNicknameArray,
+    userId,
+}) => {
     const [isModal, setIsModal] = useState(false);
 
     const onModalOpen = () => {
@@ -67,22 +89,49 @@ const Comment = ({ contents, date }) => {
     const onModalClose = () => {
         setIsModal(false);
     };
+    let finalNickname;
+    if (isOwner) finalNickname = nickname + `(글쓴이)`;
+    else if (nickname === '익명') {
+        for (let key in commentNicknameArray) {
+            if (commentNicknameArray[key].userId === userId) {
+                finalNickname = commentNicknameArray[key].changeNickname;
+            }
+        }
+    } else {
+        finalNickname = nickname;
+    }
 
     return (
         <CommentWrapper>
             <div className="comment-top">
                 <span className="comment-profile">
                     <img src={profileImg} alt="profile" />
-                    <span>익명</span>
+                    <NicknameSpan isOwner={isOwner}>
+                        {finalNickname}
+                    </NicknameSpan>
                 </span>
                 <span className="comment-like-more">
-                    <img src={likeImg} alt="like" />
+                    <img
+                        src={likeImg}
+                        alt="like"
+                        onClick={() => onClickHandler(2, id)}
+                    />
                     <span>|</span>
                     <img src={moreImg} onClick={onModalOpen} alt="more" />
                 </span>
             </div>
             <div className="comment-contents">{contents}</div>
-            <div className="comment-date">{DateChange(date)}</div>
+            <div className="comment-date">
+                {DateChange(date)}
+                {likeNum >= 1 ? (
+                    <span className="comment-like">
+                        <img src={likeImg} alt="like" />
+                        {likeNum ? likeNum : 0}
+                    </span>
+                ) : (
+                    <></>
+                )}
+            </div>
 
             <Modal
                 isOpen={isModal}

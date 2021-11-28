@@ -30,3 +30,20 @@ export const getMainMyBoard = async () => {
     const response = await axios.get('/api/board/main/myboard');
     return response.data.data;
 };
+
+export const getMainHot = async () => {
+    const response = await axios.get('/api/board/main/hot');
+    return response.data.data;
+};
+
+export const getMainRealTime = async () => {
+    const response = await axios.get('/api/board/main/realtime');
+    return response.data.data;
+};
+
+export const getMainFilterByCategory = async (category) => {
+    const response = await axios.get(
+        `/api/board/main/filter?category=${category}`,
+    );
+    return response.data.data;
+};

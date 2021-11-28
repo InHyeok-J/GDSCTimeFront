@@ -10,6 +10,8 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import board, { getBoardListAction } from '../../../module/board';
 import { CategoryMapper } from '../../../utils/category';
+import NotDateText from '../../../components/NotDateText';
+import PreviewProfile from '../../../layout/PreviewProfile';
 
 const BoardListPageWrapper = styled.div`
     width: 100%;
@@ -66,25 +68,29 @@ const BoardListPage = ({ match }) => {
 
     return (
         <BoardListPageWrapper>
-            <ArrowTitle search="search">
+            <ArrowTitle search="search" to="/board">
                 <div className="board-category">
                     {CategoryMapper[category]}
                     <div>GDDS</div>
                 </div>
             </ArrowTitle>
             <div className="board-list-block">
-                {boardlist.map((board) => (
-                    <Link to={`/board/detail/${board.id}`}>
-                        <PreviewBoard
-                            key={board.board_category_id}
-                            className="preview-board"
-                            title={board.title}
-                            contents={board.content}
-                            like={board.like_num}
-                            comments={board.comment_num}
-                        />
-                    </Link>
-                ))}
+                {boardlist.length >= 1 ? (
+                    boardlist.map((board) => (
+                        <Link to={`/board/detail/${board.id}`}>
+                            <PreviewBoard
+                                key={board.board_category_id}
+                                className="preview-board"
+                                title={board.title}
+                                contents={board.content}
+                                like={board.like_num}
+                                comments={board.comment_num}
+                            />
+                        </Link>
+                    ))
+                ) : (
+                    <NotDateText />
+                )}
             </div>
 
             <div className="board-post-link fixed-button">

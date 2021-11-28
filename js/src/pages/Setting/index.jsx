@@ -73,7 +73,9 @@ const SettingPage = () => {
 
     return (
         <SettingPageWrapper>
-            <ArrowTitle search="/">홈 화면 설정</ArrowTitle>
+            <ArrowTitle search="/" to="/">
+                홈 화면 설정
+            </ArrowTitle>
             <div className="board-wrapper ">
                 <div>
                     <input

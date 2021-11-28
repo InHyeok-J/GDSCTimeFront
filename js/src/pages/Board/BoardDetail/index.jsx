@@ -15,6 +15,8 @@ import {
     getBoardDetailAction,
     getBoardCommentAction,
     postCommentAction,
+    initPostComment,
+    likeAction,
 } from '../../../module/board';
 import { useSelector } from 'react-redux';
 import { DateChange } from '../../../utils/dateChange';
@@ -23,9 +25,11 @@ import { useHistory } from 'react-router';
 
 const BoardDetailPage = ({ match }) => {
     const postId = match.params.id;
-    const [comment, onChangeComment] = useInput('');
+    const [comment, onChangeComment, setComment] = useInput('');
     const [anonymity, , setAnonymity] = useInput(false);
-    const { boarddetail, boardcomment } = useSelector((state) => state.board);
+    const { boarddetail, boardcomment, postcomment, postlike } = useSelector(
+        (state) => state.board,
+    );
     const dispatch = useDispatch();
     const history = useHistory();
     const onAnonymity = useCallback(
@@ -34,18 +38,23 @@ const BoardDetailPage = ({ match }) => {
         },
         [anonymity],
     );
+
     useEffect(async () => {
-        await dispatch(getBoardDetailAction(postId)).catch((err) => {
-            console.error(err);
-        });
-    }, []);
-    useEffect(async () => {
-        await dispatch(getBoardCommentAction(postId)).catch((err) => {
-            console.error(err);
-        });
+        await dispatch(getBoardDetailAction(postId));
+        await dispatch(getBoardCommentAction(postId));
+    }, [postcomment, postlike]);
+
+    useEffect(() => {
+        return async () => {
+            await dispatch(initPostComment());
+        };
     }, []);
 
     const onSubmitComment = useCallback(async () => {
+        if (comment == '') {
+            alert('댓글을 입력해');
+            return false;
+        }
         try {
             await dispatch(
                 postCommentAction({
@@ -53,21 +62,53 @@ const BoardDetailPage = ({ match }) => {
                     is_secret: anonymity,
                     content: comment,
                 }),
-            ).then((res) => {
-                console.log(res);
-                location.reload();
-            });
+            );
+            setComment('');
         } catch (err) {
             console.error(err);
         }
     }, [comment]);
 
+    const onLikeHandler = useCallback(async (categoryId, refId) => {
+        await dispatch(
+            likeAction({
+                category_id: categoryId,
+                ref_id: refId,
+            }),
+        )
+            .then((response) => alert('좋아요성공!'))
+            .catch((err) => {
+                console.log(err.response.data.message);
+                alert(err.response.data.message);
+            });
+    });
+
     if (!boarddetail || !boardcomment) return <div>데이터 받아오는중...</div>;
-    console.log(boardcomment);
+    //방장이 아니고 익명인 댓글 가져오기
+    let comments = boardcomment.filter((data) => {
+        return data.owner === false && data.nickname === '익명';
+    });
+    // 중복 제거
+    let commentNickname = [];
+    let count = 0;
+
+    for (let key in comments) {
+        if (!commentNickname.includes(comments[key].user_id))
+            commentNickname.push(comments[key].user_id);
+    }
+    for (let key in commentNickname) {
+        commentNickname[key] = {
+            userId: commentNickname[key],
+            changeNickname: `익명${++count}`,
+        };
+    }
     return (
         <BoardDetailPageWrapper>
             <div className="padding-container">
-                <ArrowTitle search="search">
+                <ArrowTitle
+                    search="search"
+                    to={`/board/list/${boarddetail.board_category_id}`}
+                >
                     <div className="board-category">
                         {CategoryMapper[boarddetail.board_category_id]}
                         <div>GDDS</div>
@@ -75,6 +116,7 @@ const BoardDetailPage = ({ match }) => {
                 </ArrowTitle>
                 <PreviewBoardProfile
                     date={DateChange(boarddetail.created_at)}
+                    nickname={boarddetail.nickname}
                 />
                 <div className="post-container">
                     <div className="post-title">{boarddetail.title}</div>
@@ -91,7 +133,10 @@ const BoardDetailPage = ({ match }) => {
                             </span>
                         </span>
                     </div>
-                    <button className="like-button">
+                    <button
+                        className="like-button"
+                        onClick={() => onLikeHandler(1, boarddetail.id)}
+                    >
                         <img src={likeImg} alt="like" />
                         공감
                     </button>
@@ -99,7 +144,14 @@ const BoardDetailPage = ({ match }) => {
                 <div className="comments-container">
                     {boardcomment.map((comments) => (
                         <Comment
+                            onClickHandler={onLikeHandler}
+                            nickname={comments.nickname}
+                            commentNicknameArray={commentNickname}
                             key={comments.id}
+                            id={comments.id}
+                            userId={comments.user_id}
+                            isOwner={comments.owner}
+                            likeNum={comments.like_num}
                             contents={comments.content}
                             date={comments.created_at}
                         />

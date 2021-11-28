@@ -4,11 +4,13 @@ import likeImg from '../assets/icon/like.png';
 import commentImg from '../assets/icon/comment.png';
 import { COLORS } from '../components/Colors';
 import { DateChangeHour } from '../utils/dateChange';
+import { useHistory } from 'react-router';
 
 const PreviewOnlyWrapper = styled.div`
     width: 100%;
     height: 30px;
     margin-top: 20px;
+    cursor: pointer;
     .date {
         font-size: 0.7rem;
         color: ${COLORS.grey_text};
@@ -49,9 +51,10 @@ const PreviewOnlyWrapper = styled.div`
     }
 `;
 
-const PreviewOnly = ({ title, date, like, comments }) => {
+const PreviewOnly = ({ id, title, date, like, comments }) => {
+    const history = useHistory();
     return (
-        <PreviewOnlyWrapper>
+        <PreviewOnlyWrapper onClick={() => history.push(`/board/detail/${id}`)}>
             <div className="title">{title}</div>
             <div className="like-comments-block">
                 <span className="date">{DateChangeHour(date)}</span>
