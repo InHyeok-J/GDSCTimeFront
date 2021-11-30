@@ -16,7 +16,6 @@ export const getBoardComment = async (id) => {
 };
 
 export const postBoard = async (data) => {
-    console.log(data);
     const response = await axios.post('/api/board', data);
     return response.data.data;
 };
@@ -47,3 +46,4 @@ export const getMainFilterByCategory = async (category) => {
     );
     return response.data.data;
 };
+
